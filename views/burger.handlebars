@@ -3,20 +3,49 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
-
+      <ul>
+          {{#each burgersFalse}}
+          <li>
+            <span><p>{{this.burger}}</p><button type="button" value="{{this.id}}" class="devour  btn btn-sm btn-info" name="button">Devour</button></span>
+          </li>
+          {{/each}}
+      </ul>
     </div>
-  <ul>
-      {{#each burgersTrue}}
-      <li>
-          <p>{{this.burger}}</p>
-      </li>
-      {{/each}}
-  </ul>
+    <div class="col-sm-4">
+          <textarea type="text" name="wish" value = ""></textarea>
 
-  <form action="/" method="POST">
-      <textarea type="text" name="wish"></textarea>
-
-      <button type="submit">Submit</button>
-  </form>
+          <button class = "submit" type="submit">Submit</button>
+    </div>
+    <div class="col-sm-4">
+      <div class="col-sm-4">
+        <ul>
+            {{#each burgersTrue}}
+            <li>
+                <p>{{this.burger}}</p>
+            </li>
+            {{/each}}
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+<script>
+$(document).ready(function(){
+  $(".devour").on("click", function(){
+    console.log("pressed!")
+    value = $(this).val()
+    $.post("./devour/"+value)
+    location.reload()
+  })
+
+  $(".submit").on("click", function(){
+    val = $("textarea").val()
+    $.post("/new/"+val, function(){
+      location.reload()
+    })
+  })
+
+
+
+})
+</script>
